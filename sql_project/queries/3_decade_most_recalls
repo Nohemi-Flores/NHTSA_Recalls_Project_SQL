@@ -1,0 +1,12 @@
+SELECT decade, total_recalls
+FROM (SELECT (year_report_received / 10) * 10 AS decade, COUNT(*) AS total_recalls
+      FROM recall_nhtsa
+      GROUP BY (year_report_received / 10) * 10)
+      AS second_count
+WHERE total_recalls =
+      (SElECT MAX(total_recalls)
+        FROM 
+        (SELECT COUNT(*) AS total_recalls
+         FROM recall_nhtsa
+         GROUP BY (year_report_received / 10) * 10)
+      AS first_count);

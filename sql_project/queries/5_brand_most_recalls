@@ -1,0 +1,19 @@
+SELECT Manufacturer, total_recalls
+FROM (
+    SELECT manufacturer, COUNT(*) AS total_recalls
+    FROM recall_nhtsa
+    GROUP BY manufacturer
+    ) 
+    AS second_count
+WHERE total_recalls = 
+    (
+     SELECT MAX(total_recalls)
+     FROM 
+     (
+        SELECT COUNT(*) AS total_recalls
+        FROM recall_nhtsa
+        GROUP BY manufacturer
+     ) 
+        AS first_count
+     );
+

@@ -1,0 +1,8 @@
+SELECT manufacturer, COUNT(*) AS total_recalls
+FROM recall_nhtsa
+WHERE manufacturer LIKE '%Porsche%' OR 
+      manufacturer LIKE '%Audi%' OR 
+      manufacturer LIKE '%BMW%' OR
+      manufacturer LIKE '%Mercedes%'
+GROUP BY manufacturer
+ORDER BY total_recalls DESC;
